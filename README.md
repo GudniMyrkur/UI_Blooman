@@ -46,13 +46,16 @@ There is no proof yet that this plug-in has actually been used in a work and has
 
 
 # 対応バージョン / Supported Versions
-- [v0.1.3 or later](https://github.com/seiko-dev/UI_Blooman/releases)
-  - UE5.2.1
-- [v0.1.2](https://github.com/seiko-dev/UI_Blooman/releases/tag/v0.1.2)
-  - UE5.0.3
+- UE5.0以降に随時対応  
+Support UE5.0 or later as needed
+  - [Release](https://github.com/seiko-dev/UI_Blooman/releases)
+- 基本的に作者が使うバージョン以外はサポートしません。新機能も増えません。  
+Basically, only the version used by the author will be supported. New features will not be added.
+
 
 # 対応プラットフォーム / Supported Platforms
 - Win64
+
 
 # インストール手順 / Installation
 
