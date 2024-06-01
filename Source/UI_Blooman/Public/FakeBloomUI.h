@@ -27,7 +27,7 @@ public:
     bool IsDesignTime() const;
 
 public:
-    UPROPERTY(EditAnywhere, Category = "Fake Bloom")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Fake Bloom")
     FFakeBloomUI_BaseParameter BaseParameter;
 
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Instanced, NoClear, Category = "Fake Bloom")

@@ -4,7 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Engine/TextureDefines.h"
+#include "Layout/Geometry.h"
+#include "Layout/SlateRect.h"
+#include "Styling/SlateBrush.h"
 #include "FakeBloomUI_Parameter.generated.h"
+
+class UTexture2D;
 
 USTRUCT(Blueprintable)
 struct UI_BLOOMAN_API FFakeBloomUI_PreProcessArgs
