@@ -6,6 +6,8 @@
 #include "Widgets/SCompoundWidget.h"
 #include "Widgets/SWidget.h"
 
+class UFakeBloomUI;
+
 class UI_BLOOMAN_API SFakeBloomUI : public SCompoundWidget
 {
     SLATE_DECLARE_WIDGET(SFakeBloomUI, SCompoundWidget)

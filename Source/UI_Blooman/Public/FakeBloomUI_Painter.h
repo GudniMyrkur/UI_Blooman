@@ -5,6 +5,8 @@
 #include "FakeBloomUI_Parameter.h"
 #include "FakeBloomUI_Painter.generated.h"
 
+class UFakeBloomUI;
+
 // Paint the Image Object specified by the parameter.
 // PainterがUIに塗り、WriterがStatic Textureに書き出す。
 UCLASS(Abstract, Blueprintable, EditInlineNew)

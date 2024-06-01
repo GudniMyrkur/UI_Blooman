@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FakeBloomUI_Parameter.h"
 #include "FakeBloomUI_Builder.generated.h"
 
 UENUM(BlueprintType)
