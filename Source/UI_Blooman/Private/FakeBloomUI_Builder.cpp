@@ -80,7 +80,7 @@ bool UFakeBloomUI_Builder::DrawWidgetToTarget(UTextureRenderTarget2D* Target,
                 Content
             ];
 #if 1
-        WidgetRenderer->DrawWidget(Target, Canvas, ContentPos + LocalSize, 0.0f);
+        WidgetRenderer->DrawWidget(Target, Canvas, ContentPos + LocalSize, GetWorld()->GetDeltaSeconds());
 
 #else
         // https://github.com/seiko-dev/UI_Blooman/issues/32
