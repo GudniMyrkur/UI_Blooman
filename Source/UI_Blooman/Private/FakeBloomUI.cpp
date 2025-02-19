@@ -80,17 +80,19 @@ void UFakeBloomUI::OnPaintPreProcess(const FFakeBloomUI_PreProcessArgs& args)
 
 void UFakeBloomUI::OnPaint(FPaintContext& Context)
 {
-    float Opacity = 1.0f;
+    float AccumulatedOpacity = 1.0f;
     {
-        UWidget* Widget = this;
-        while (Widget) {
-            Opacity *= Widget->GetRenderOpacity();
-            Widget = Widget->GetParent();
+        TSharedPtr<SWidget> CurrentWidget = MyFakeBloomUI;
+        while (CurrentWidget.IsValid())
+        {
+            AccumulatedOpacity *= CurrentWidget->GetRenderOpacity();
+            CurrentWidget = CurrentWidget->GetParentWidget();
         }
+
     }
 
     if (Painter) {
-        Painter->SetOpacity(Opacity);
+        Painter->SetOpacity(AccumulatedOpacity);
         Painter->OnPaint(Context);
     }
 
