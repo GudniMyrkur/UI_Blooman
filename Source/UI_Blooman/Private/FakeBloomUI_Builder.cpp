@@ -6,6 +6,7 @@
 #include "FakeBloomUI.h"
 #include "Engine/TextureRenderTarget2D.h"
 #include "RenderingThread.h"
+#include "Kismet/KismetRenderingLibrary.h"
 
 UFakeBloomUI_Builder::UFakeBloomUI_Builder()
     : AlphaToLuminance(1.0f)
@@ -153,6 +154,57 @@ bool UFakeBloomUI_Builder::IsDesignTime() const
         return TargetWidget->IsDesignTime();
     }
     return false;
+}
+
+UTextureRenderTarget2D* UFakeBloomUI_Builder::CreateRT(int32 Width, int32 Height, FLinearColor ClearColor,
+    bool bAutoGenerateMipMaps)
+{
+    UTextureRenderTarget2D* RT = UKismetRenderingLibrary::CreateRenderTarget2D(
+        this, Width, Height,
+        ETextureRenderTargetFormat::RTF_RGBA8,
+        ClearColor, bAutoGenerateMipMaps);
+
+    if (!IsValid(RT))
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Failed to create Render Target"));
+        return nullptr;
+    }
+    
+    // We'll set the RT to clamp to avoid any artifacts when sampling the texture
+    RT->AddressX = TA_Clamp;
+    RT->AddressY = TA_Clamp;
+
+    // Set the texture group to UI so it's not affected by texture streaming
+    RT->LODGroup = TEXTUREGROUP_UI;
+    return RT;
+}
+
+UTextureRenderTarget2D* UFakeBloomUI_Builder::RequestRT(int32 Width, int32 Height, FLinearColor ClearColor,
+    bool bAutoGenerateMipMaps, UTextureRenderTarget2D*& WorkingRT)
+{
+    if (IsValid(WorkingRT))
+    {
+        if (WorkingRT->SizeX != Width || WorkingRT->SizeY != Height)
+        {
+            //Only resize the RT instead of creating a new one
+            WorkingRT->ResizeTarget(Width, Height);
+        }
+        UKismetRenderingLibrary::ClearRenderTarget2D(this, WorkingRT, ClearColor);
+        return WorkingRT;
+    }
+    
+    WorkingRT = CreateRT(Width, Height, ClearColor, bAutoGenerateMipMaps);
+    return WorkingRT;
+}
+
+int32 UFakeBloomUI_Builder::PadToGreaterPowerOf2(int32 Value)
+{
+    int32 PaddedValue = 2;
+    while (PaddedValue < Value)
+    {
+        PaddedValue <<= 1;
+    }
+    return PaddedValue;
 }
 
 class UWorld* UFakeBloomUI_Builder::GetWorld() const

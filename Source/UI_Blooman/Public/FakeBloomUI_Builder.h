@@ -103,6 +103,15 @@ public:
     UFUNCTION(BlueprintPure, Category = "Builder")
     bool IsDesignTime() const;
 
+    UFUNCTION(BlueprintCallable, Category = "Utility")
+    UTextureRenderTarget2D* CreateRT(int32 Width, int32 Height, FLinearColor ClearColor, bool bAutoGenerateMipMaps);
+    
+    UFUNCTION(BlueprintCallable, Category = "Utility")
+    UTextureRenderTarget2D* RequestRT(int32 Width, int32 Height, FLinearColor ClearColor, bool bAutoGenerateMipMaps, UPARAM(ref) UTextureRenderTarget2D*& WorkingRT);
+    
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Utility")
+    static int32 PadToGreaterPowerOf2(int32 Value);
+
 public:
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFinishBuild, UTextureRenderTarget2D*, ResultRT);
     UPROPERTY(BlueprintCallable, BlueprintAssignable, Category = "Builder")
